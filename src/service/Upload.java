@@ -1,4 +1,4 @@
-package upload;
+package service;
 
 
 import java.io.BufferedReader;
@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+
+import log.MainLogger;
 
 public class Upload {
 
@@ -25,6 +27,7 @@ public class Upload {
 			File newFile = new File(path + newName);
 			boolean flag = tempFile.renameTo(newFile);
 			System.out.println(newFile.getName()+" "+flag);
+			MainLogger.addLOG(newFile.getName()+" "+flag);
 		}
 	}
 	
@@ -34,14 +37,21 @@ public class Upload {
 	 * @param arg0 删除的字符串 参考：<b>.bak</b>
 	 */
 	public static void deleteFile(String path,String arg0){
+		System.out.println("path:"+path+"\n"+"arg0:"+arg0);
+		MainLogger.addLOG("path:"+path+"\n"+"arg0:"+arg0);
 		File file = new File(path);
 		File[] files = file.listFiles();
+		if(files==null){
+			MainLogger.addLOG("路径"+file+"不存在！");			
+			return;
+		}
 		for (int i = 0; i < files.length; i++) {
 			File tempFile = files[i];
 			String name = tempFile.getName();
-			if(name.indexOf(arg0)>0){
+			if(name.indexOf(arg0)>-1){
 				tempFile.delete();
-				System.out.println(name+"已删除。");				
+				System.out.println(name+"已删除。");
+				MainLogger.addLOG(name+"已删除。");
 			}
 		}		
 	}
@@ -62,12 +72,14 @@ public class Upload {
 			FileWriter fw = new FileWriter(path+newFileName);
 			BufferedWriter bw = new BufferedWriter(fw);
 			System.out.println(newFileName+"开始复制·······");
+			MainLogger.addLOG(newFileName+"开始复制·······");
 			String line;
 			
 			while ((line = br.readLine()) != null) {
 				bw.write(line+"\r\n");
 			}
 			System.out.println(newFileName+"复制结束。");
+			MainLogger.addLOG(newFileName+"复制结束。");
 			bw.close();
 			fw.close();
 			br.close();
@@ -95,6 +107,7 @@ public class Upload {
 			FileWriter fw = new FileWriter(path+newFileName);
 			BufferedWriter bw = new BufferedWriter(fw);
 			System.out.println(newFileName+"开始复制·······");
+			MainLogger.addLOG(newFileName+"开始复制·······");
 			String line;
 			
 			//PROCEDURE特殊处理
@@ -108,6 +121,7 @@ public class Upload {
 			}
 
 			System.out.println(newFileName+"复制结束。");
+			MainLogger.addLOG(newFileName+"复制结束。");
 			bw.close();
 			fw.close();
 			br.close();
@@ -131,6 +145,7 @@ public class Upload {
 			FileWriter fw = new FileWriter(path+newFileName);
 			BufferedWriter bw = new BufferedWriter(fw);
 			System.out.println(newFileName+"开始整理·······");
+			MainLogger.addLOG(newFileName+"开始整理·······");
 			String line;
 			boolean tag = false;//表示起始是否在注释中
 			StringBuffer sb = new StringBuffer();
@@ -201,10 +216,11 @@ public class Upload {
 						}				
 					}
 				}
-				sb.append(line+" ");//添加到sb中，将" "改为"\n"的话不会输出为一行
+				sb.append(line+"\n");//添加到sb中，将" "改为"\n"的话不会输出为一行
 			}
 			bw.write(sb+"\r\n");
 			System.out.println(newFileName+"整理结束。");
+			MainLogger.addLOG(newFileName+"整理结束。");
 			bw.close();
 			fw.close();
 			br.close();
