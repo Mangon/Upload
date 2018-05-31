@@ -1,25 +1,23 @@
-==========================================================================  
-此app用于CBSS项目组为参数组生成脚本使用  
-==========================================================================  
+ 
+# 此app用于CBSS项目组为参数组生成脚本使用  
 
-共包括5个方法：
 
-replaceFilename
-替换路径path下所有文件名中的字符串arg0为arg1 
+共包括5个方法：  
 
-deleteFile
-删除路径path下文件名包含字符串arg0的文件
+## replaceFilename  
+替换路径path下所有文件名中的字符串arg0为arg1   
 
-copyFile
-将路径path的文件名fileName中的arg0重命名为arg0[i]并复制n份
+## deleteFile  
+删除路径path下文件名包含字符串arg0的文件  
 
-copyProcedureFile
-将路径path的文件名fileName中的arg0重命名为arg0[i]并复制n份(Procedure专用)
+## copyFile  
+将路径path的文件名fileName中的arg0重命名为arg0[i]并复制n份  
 
-cleanFile
-删除SQL文件中的注释,压缩代码，让你的sql变得无人能懂O(∩_∩)O
+## copyProcedureFile  
+将路径path的文件名fileName中的arg0重命名为arg0[i]并复制n份(Procedure专用)  
 
-==========================================================================
-更多信息请阅读方法注释
+## cleanFile  
+删除SQL文件中的注释,压缩代码
 
-如果有不懂的地方也可以联系作者gaoxiang.like@163.com
+
+更多信息请阅读方法注释  
